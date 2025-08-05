@@ -17,7 +17,7 @@ import { AuthGuard } from './auth.guard';
         secret: configService.get<string>('JWT_SECRET'),
       }),
       inject: [ConfigService],
-    })
+    }),
   ],
   controllers: [AuthController],
   providers: [AuthService, {

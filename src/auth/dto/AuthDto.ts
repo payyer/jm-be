@@ -1,24 +1,20 @@
-import { IsString } from "class-validator";
-import { UserRole } from "src/user/user.entity";
+import { IsNotEmpty } from "class-validator";
 
 export class SignInDto {
-    @IsString()
-    username: string;
-    @IsString()
+    @IsNotEmpty()
     email: string;
-    @IsString()
 
-    phone: string;
-    @IsString()
-
+    @IsNotEmpty()
     password: string
-    @IsString()
+}
 
-    address: string;
-    @IsString()
+export class RegisterDto {
+    @IsNotEmpty()
+    email: string;
 
-    role: UserRole;
-    @IsString()
+    @IsNotEmpty()
+    phone: string;
 
-    cart_id: string;
+    @IsNotEmpty()
+    password: string
 }

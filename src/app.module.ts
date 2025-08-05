@@ -22,6 +22,7 @@ import { AuthModule } from './auth/auth.module';
         database: configService.get<string>('DEV_DATABASE_PG'),
         entities: [__dirname + '/**/*.entity{.ts,.js}',],
         synchronize: true,
+        autoLoadEntities: true
       }),
     }),
     UserModule,
