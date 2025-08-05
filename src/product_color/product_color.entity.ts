@@ -1,6 +1,6 @@
 import { Colors } from "src/color/color.entity";
 import { Product } from "src/product/product.entity";
-import { Entity, JoinColumn, ManyToOne, PrimaryColumn } from "typeorm";
+import { Entity, JoinColumn, ManyToOne, PrimaryColumn, Relation } from "typeorm";
 
 @Entity()
 export class ProductColor {
@@ -12,9 +12,9 @@ export class ProductColor {
 
     @ManyToOne(() => Product, product => product.id)
     @JoinColumn({ name: 'product_id' })
-    product: Product;
+    product: Relation<Product>;
 
     @ManyToOne(() => Colors, color => color.id)
     @JoinColumn({ name: 'color_id' })
-    colors: Colors;
+    colors: Relation<Colors>;
 }

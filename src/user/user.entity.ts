@@ -2,7 +2,7 @@ import { Cart } from "src/cart/cart.entity";
 import { Order } from "src/order/order.entity";
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn, Relation, UpdateDateColumn } from "typeorm";
 
-enum UserRole {
+export enum UserRole {
     ADMIN = 'admin',
     USER = 'user'
 }

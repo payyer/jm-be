@@ -1,5 +1,5 @@
 import { ProductColor } from "src/product_color/product_color.entity";
-import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, Relation } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn, Relation } from "typeorm";
 
 @Entity()
 export class Colors {
