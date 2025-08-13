@@ -1,5 +1,6 @@
-import { Controller, Get } from "@nestjs/common";
 import { UserService } from "./user.service";
+import { Controller, Get, Post, Req } from "@nestjs/common";
+import { GetUserAuthInfoRequest } from "src/types/customRequest.type";
 
 @Controller('users')
 export class UserController {
@@ -8,7 +9,9 @@ export class UserController {
     ) { }
 
     @Get()
-    test(): string {
-        return this.userService.test();
+    findOne(@Req() req: GetUserAuthInfoRequest) {
+        const userId = req.user.sub
+        return this.userService.findOne(userId);
     }
+
 }

@@ -10,7 +10,8 @@ export class AuthGuard implements CanActivate {
     constructor(
         private jwtService: JwtService,
         private configService: ConfigService,
-        private reflector: Reflector
+        private reflector: Reflector,
+
     ) { }
 
     async canActivate(context: ExecutionContext): Promise<boolean> {
@@ -40,13 +41,13 @@ export class AuthGuard implements CanActivate {
             )
             request['user'] = payload
         } catch {
-            throw new UnauthorizedException()
+            throw new UnauthorizedException("Token Invalid")
         }
         return true
     }
 
     private extractTokenFromHeader(request: Request): string | undefined {
-        const [type, token] = request.headers.authorization?.split(' ') ?? []
+        const [type, token] = request.cookies['Authorization']?.split(' ') ?? []
         return type === 'Bearer' ? token : undefined
     }
 }
