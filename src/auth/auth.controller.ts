@@ -1,4 +1,4 @@
-import { Body, Controller, HttpCode, Post, Res } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, Post, Req, Res } from '@nestjs/common';
 import { RegisterDto, SignInDto } from './dto/AuthDto';
 import { AuthService } from './auth.service';
 import { SkipAuth } from './decorator/skipAuth.decorator';
@@ -12,6 +12,12 @@ export class AuthController {
     @Post("sign-in")
     signIn(@Body() signInDto: SignInDto, @Res({ passthrough: true }) res: Response) {
         return this.authService.signIn(signInDto, res)
+    }
+
+    @SkipAuth()
+    @Get("google")
+    signInWithGoogle(@Body("access_token") access_token: string, @Res({ passthrough: true }) res: Response) {
+        return this.authService.signInWithGoogle(access_token, res)
     }
 
     @SkipAuth()
