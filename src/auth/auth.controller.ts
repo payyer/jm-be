@@ -15,7 +15,7 @@ export class AuthController {
     }
 
     @SkipAuth()
-    @Get("google")
+    @Post("google")
     signInWithGoogle(@Body("access_token") access_token: string, @Res({ passthrough: true }) res: Response) {
         return this.authService.signInWithGoogle(access_token, res)
     }
