@@ -1,5 +1,5 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { RegisterDto, SignInDto } from './dto/AuthDto';
+import { RegisterDto, ResetPasswordDto, SignInDto } from './dto/AuthDto';
 import { JwtService } from '@nestjs/jwt';
 import { Repository } from 'typeorm';
 import { User, UserRole } from 'src/user/user.entity';
@@ -22,11 +22,11 @@ export class AuthService {
 
         const user = await this.usersRepository.findOne({ where: [{ email: emailOrPhone }, { phone: emailOrPhone }] })
 
-        if (!user) throw new BadRequestException("Email or Phone or Password is wrong")
+        if (!user) throw new BadRequestException("Email, SĐT hoặc mật khẩu không chính xác")
 
         const isMatch = await bcrypt.compare(password, user.password);
 
-        if (!isMatch) throw new BadRequestException("Email or Phone or Password is wrong")
+        if (!isMatch) throw new BadRequestException("Email, SĐT hoặc mật khẩu không chính xác")
 
         const payload = { sub: user.id, userRole: user.role, username: user.username }
 
@@ -112,5 +112,34 @@ export class AuthService {
     async logout(res: Response) {
         res.cookie("Authorization", "", { maxAge: 0 })
         res.cookie("isLogged", false, { maxAge: 0 })
+    }
+
+    async resetPassword(resetPasswordDto: ResetPasswordDto, res: Response) {
+        const user = await this.usersRepository.findOne({ where: { email: resetPasswordDto.email } })
+        if (!user) throw new BadRequestException("Email này chưa được tạo")
+
+        const isMatch = await bcrypt.compare(resetPasswordDto.otpCode, user.otpCode);
+        if (!isMatch) throw new BadRequestException("OTP không hợp lệ")
+
+        const isExpires = user.otpExpiresAt < new Date(Date.now()).toISOString()
+        if (isExpires) throw new BadRequestException("Mã OTP đã hết hạn!!!")
+
+        const saltOrRounds = await bcrypt.genSalt();
+        const hashPassword = await bcrypt.hash(resetPasswordDto.password, saltOrRounds)
+
+        user.password = hashPassword
+        user.otpCode = ""
+        user.otpExpiresAt = ""
+        await this.usersRepository.save(user)
+
+        const payload = { sub: user.id, userRole: user.role, username: user.username }
+
+        const access_token = await this.jwtService.signAsync(payload)
+
+        const expirationDate = new Date(Date.now() + 168 * 60 * 60 * 1000)
+        res.cookie("Authorization", `Bearer ${access_token}`, { httpOnly: true, expires: expirationDate })
+        res.cookie("isLogged", true, { expires: expirationDate })
+
+        return "Thay đổi mật khẩu thành công"
     }
 }

@@ -1,5 +1,5 @@
-import { Body, Controller, Get, HttpCode, Post, Req, Res } from '@nestjs/common';
-import { RegisterDto, SignInDto } from './dto/AuthDto';
+import { Body, Controller, Get, HttpCode, Post, Put, Req, Res } from '@nestjs/common';
+import { RegisterDto, ResetPasswordDto, SignInDto } from './dto/AuthDto';
 import { AuthService } from './auth.service';
 import { SkipAuth } from './decorator/skipAuth.decorator';
 import { Response } from "express"
@@ -30,5 +30,11 @@ export class AuthController {
     @Post("logout")
     logout(@Res({ passthrough: true }) res: Response) {
         return this.authService.logout(res)
+    }
+
+    @SkipAuth()
+    @Put("reset-password")
+    resetPassword(@Body() resetPasswordDto: ResetPasswordDto, @Res({ passthrough: true }) res: Response) {
+        return this.authService.resetPassword(resetPasswordDto, res)
     }
 }

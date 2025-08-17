@@ -22,11 +22,9 @@ export class UserService {
             throw new BadRequestException("Can't find User")
         }
         const updateFiled = getFiledUpdate(user, updateUserDto);
-        console.log({ updateFiled })
 
         if (updateFiled.email || updateFiled.phone) {
             const findUserByEmailOrPhone = await this.usersRepository.findOne({ where: [{ email: updateFiled.email }, { phone: updateFiled.phone }] })
-            console.log({ findUserByEmailOrPhone })
             if (findUserByEmailOrPhone) throw new BadRequestException("Email hoặc Số điện thoại đã được sử dụng")
         }
 

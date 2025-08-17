@@ -26,6 +26,12 @@ export class User {
     @Column()
     address: string
 
+    @Column({ nullable: true })
+    otpCode: string
+
+    @Column({ nullable: true })
+    otpExpiresAt: string
+
     @Column({
         type: "enum",
         enum: UserRole,
