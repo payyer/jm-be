@@ -1,4 +1,4 @@
-import { Body, Controller, Get } from "@nestjs/common";
+import { Body, Controller, Post } from "@nestjs/common";
 import { EmailService } from "./email.service";
 import { SkipAuth } from "src/auth/decorator/skipAuth.decorator";
 
@@ -7,7 +7,7 @@ export class EmailController {
     constructor(private readonly emailService: EmailService) { }
 
     @SkipAuth()
-    @Get("otp")
+    @Post("otp")
     getOTP(@Body('email') email: string) {
         return this.emailService.getOTP(email)
     }
