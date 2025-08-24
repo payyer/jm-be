@@ -27,11 +27,11 @@ export class Product {
 
     @ManyToOne(() => Collection, (collection) => collection.id)
     @JoinColumn({ name: 'collection_id' })
-    collection: Collection
+    collection: Relation<Collection>
 
     @ManyToOne(() => Category, category => category.id)
     @JoinColumn({ name: "category_id" })
-    category: Category
+    category: Relation<Category>
 
     @OneToMany(() => ProductColor, productColor => productColor.product_id)
     productColors: Relation<ProductColor>[]

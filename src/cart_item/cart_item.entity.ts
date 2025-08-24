@@ -1,6 +1,6 @@
 import { Cart } from "src/cart/cart.entity";
 import { Product } from "src/product/product.entity";
-import { Entity, JoinColumn, ManyToOne, PrimaryColumn } from "typeorm";
+import { Entity, JoinColumn, ManyToOne, PrimaryColumn, Relation } from "typeorm";
 
 @Entity()
 export class CartItem {
@@ -12,9 +12,9 @@ export class CartItem {
 
     @ManyToOne(type => Cart, cart => cart.id)
     @JoinColumn({ name: 'cart_id' })
-    cart: Cart
+    cart: Relation<Cart>
 
     @ManyToOne(type => Product, product => product.id)
     @JoinColumn({ name: 'product_id' })
-    product: Product
+    product: Relation<Product>
 }

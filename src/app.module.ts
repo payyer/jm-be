@@ -8,6 +8,7 @@ import { CartModule } from './cart/cart.module';
 import { AuthModule } from './auth/auth.module';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { EmailModule } from './email/email.module';
+import { CategoryModule } from './category/category.module';
 
 @Module({
   imports: [
@@ -43,7 +44,8 @@ import { EmailModule } from './email/email.module';
     UserModule,
     CartModule,
     AuthModule,
-    EmailModule
+    EmailModule,
+    CategoryModule
   ],
   controllers: [AppController],
   providers: [AppService],
