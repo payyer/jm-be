@@ -6,7 +6,6 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { UserModule } from './user/user.module';
 import { CartModule } from './cart/cart.module';
 import { AuthModule } from './auth/auth.module';
-import { MailerModule } from '@nestjs-modules/mailer';
 import { EmailModule } from './email/email.module';
 import { CategoryModule } from './category/category.module';
 
@@ -28,24 +27,11 @@ import { CategoryModule } from './category/category.module';
         autoLoadEntities: true
       }),
     }),
-    // MailerModule.forRootAsync({
-    //   imports: [ConfigModule],
-    //   inject: [ConfigService],
-    //   useFactory: (configService: ConfigService) => ({
-    //     transport: {
-    //       host: configService.get<string>("EMAIL_HOST"),
-    //       auth: {
-    //         user: configService.get<string>("EMAIL_USER"),
-    //         pass: configService.get<string>("EMAIL_PASSWORD"),
-    //       }
-    //     }
-    //   }),
-    // }),
     UserModule,
     CartModule,
     AuthModule,
     EmailModule,
-    CategoryModule
+    CategoryModule,
   ],
   controllers: [AppController],
   providers: [AppService],
