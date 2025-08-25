@@ -8,6 +8,8 @@ import { CartModule } from './cart/cart.module';
 import { AuthModule } from './auth/auth.module';
 import { EmailModule } from './email/email.module';
 import { CategoryModule } from './category/category.module';
+import { CollectionController } from './collection/collection.controller';
+import { CollectionModule } from './collection/collection.module';
 
 @Module({
   imports: [
@@ -32,8 +34,9 @@ import { CategoryModule } from './category/category.module';
     AuthModule,
     EmailModule,
     CategoryModule,
+    CollectionModule,
   ],
-  controllers: [AppController],
+  controllers: [AppController, CollectionController],
   providers: [AppService],
 })
 export class AppModule { }
