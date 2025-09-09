@@ -14,6 +14,8 @@ import { ProductModule } from './product/product.module';
 import { ProductImageModule } from './product_image/product_image.module';
 import { ColorModule } from './color/color.module';
 import { CloudinaryModule } from './cloudinary/cloudinary.module';
+import { SizeModule } from './size/size.module';
+import { ProductSizeModule } from './product_size/product_size.module';
 
 @Module({
   imports: [
@@ -43,6 +45,8 @@ import { CloudinaryModule } from './cloudinary/cloudinary.module';
     ProductImageModule,
     ColorModule,
     CloudinaryModule,
+    SizeModule,
+    ProductSizeModule,
   ],
   controllers: [AppController, CollectionController],
   providers: [AppService],
