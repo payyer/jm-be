@@ -3,11 +3,11 @@ import { Collection } from "src/collection/collection.entity";
 import { Colors } from "src/color/color.entity";
 import { ProductColor } from "src/product_color/product_color.entity";
 import { ProductImages } from "src/product_image/product_images.entity";
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryColumn, Relation } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryColumn, PrimaryGeneratedColumn, Relation } from "typeorm";
 
 @Entity()
 export class Product {
-    @PrimaryColumn('uuid')
+    @PrimaryGeneratedColumn('uuid')
     id: string;
 
     @Column()
@@ -24,6 +24,9 @@ export class Product {
 
     @Column()
     information: string;
+
+    @Column({ default: false })
+    is_public: boolean
 
     @ManyToOne(() => Collection, (collection) => collection.id)
     @JoinColumn({ name: 'collection_id' })

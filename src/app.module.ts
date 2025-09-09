@@ -10,6 +10,10 @@ import { EmailModule } from './email/email.module';
 import { CategoryModule } from './category/category.module';
 import { CollectionController } from './collection/collection.controller';
 import { CollectionModule } from './collection/collection.module';
+import { ProductModule } from './product/product.module';
+import { ProductImageModule } from './product_image/product_image.module';
+import { ColorModule } from './color/color.module';
+import { CloudinaryModule } from './cloudinary/cloudinary.module';
 
 @Module({
   imports: [
@@ -35,6 +39,10 @@ import { CollectionModule } from './collection/collection.module';
     EmailModule,
     CategoryModule,
     CollectionModule,
+    ProductModule,
+    ProductImageModule,
+    ColorModule,
+    CloudinaryModule,
   ],
   controllers: [AppController, CollectionController],
   providers: [AppService],

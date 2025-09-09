@@ -14,6 +14,9 @@ export class ProductImages {
     color_id: string;
 
     @Column()
+    public_id: string
+
+    @Column()
     image_url: string;
 
     @Column({ default: false })
